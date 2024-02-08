@@ -1,47 +1,27 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Image from 'next/image';
-
-interface Country {
-  name: string;
-  flags: {
-    svg: string;
-  };
-}
+import CountryList from '../components/country_list/country_list'; // Assurez-vous d'ajuster le chemin d'alias selon votre configuration
 
 const HomePage = () => {
-  const [countries, setCountries] = useState<Country[]>([]);
+  const [countries, setCountries] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get<any>('https://restcountries.com/v3.1/all');
-        const countriesData = response.data.map((country: any) => ({
-          name: country.name.common,
-          flags: {
-            svg: country.flags.svg
-          }
-        }));
-        setCountries(countriesData);
+        setCountries(response.data);
       } catch (error) {
         console.error('Error fetching countries:', error);
       }
     };
 
     fetchData();
-  }, []); // Utilisation d'un tableau vide pour exécuter useEffect une seule fois lors du montage
+  }, []);
 
   return (
     <div>
       <h1>Liste des pays</h1>
-      <ul>
-        {countries.map(country => (
-          <li key={country.name}>
-            {country.flags && <Image src={country.flags.svg} alt={country.name} width={30} height={20} loading="eager" />}
-            {country.name}
-          </li>
-        ))}
-      </ul>
+      <CountryList countries={countries} />
     </div>
   );
 };

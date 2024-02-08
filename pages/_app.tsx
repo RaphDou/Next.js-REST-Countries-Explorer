@@ -1,6 +1,6 @@
 import { AppProps } from 'next/app';
-import MyMenu from '../src/components/molecules/my-menu/my-menu';
-import MyFooter from '../src/components/molecules/my-footer/my-footer';
+import MyMenu from '../components/appbar/appbar';
+import MyFooter from '../components/footer/footer';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

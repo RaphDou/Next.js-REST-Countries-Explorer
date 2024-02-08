@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DataGrid, GridRowsProp, GridColDef, GridCellParams, GridRowParams } from '@mui/x-data-grid';
+import { InputAdornment, TextField } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 interface Country {
   name: {
@@ -15,7 +17,13 @@ interface CountryListProps {
 }
 
 const CountryList: React.FC<CountryListProps> = ({ countries }) => {
-  const rows: GridRowsProp = countries.map((country, index) => ({
+  const [searchValue, setSearchValue] = useState('');
+
+  const filteredCountries = countries.filter(country =>
+    country.name.common.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  const rows: GridRowsProp = filteredCountries.map((country, index) => ({
     id: index + 1,
     name: country.name.common,
     flag: country.flags.svg,
@@ -32,12 +40,28 @@ const CountryList: React.FC<CountryListProps> = ({ countries }) => {
   };
 
   return (
-    <div style={{ height: '100vh', width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        onRowClick={handleRowClick}
+    <div style={{ height: '100vh', width: '100%', display: 'flex', flexDirection: 'column' }}>
+      <TextField
+        label="Search"
+        variant="outlined"
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+        style={{ marginBottom: '20px' }}
       />
+      <div style={{ flexGrow: 1 }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          onRowClick={handleRowClick}
+        />
+      </div>
     </div>
   );
 };

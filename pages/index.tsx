@@ -19,10 +19,12 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div style={{ paddingBottom: '64px'}}>
-      <h1>Liste des pays</h1>
-      <CountryList countries={countries} />
-    </div>
+    <>
+      <div style={{ paddingBottom: '64px'}}>
+        <h1>Country List</h1>
+        <CountryList countries={countries} />
+      </div>
+    </>
   );
 };
 

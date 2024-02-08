@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import CountryList from '../components/country_list/country_list'; // Assurez-vous d'ajuster le chemin d'alias selon votre configuration
+import CountryList from '../components/country_list/country_list';
 
 const HomePage = () => {
   const [countries, setCountries] = useState<any[]>([]);
@@ -19,7 +19,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ paddingBottom: '64px'}}>
       <h1>Liste des pays</h1>
       <CountryList countries={countries} />
     </div>

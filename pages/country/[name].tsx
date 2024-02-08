@@ -1,18 +1,38 @@
-import React from 'react';
 import { useRouter } from 'next/router';
-import CountryDetails from '../../components/countryDetails/countryDetails'; // Assurez-vous d'ajuster le chemin d'alias selon votre configuration
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import CountryDetails from '../../components/countryDetails/countryDetails';
 
 const CountryPage = () => {
   const router = useRouter();
   const { name } = router.query;
+  const [countryDetails, setCountryDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Vous pouvez récupérer les détails du pays à partir d'une source de données ou en effectuant un appel API
-  const countryDetails = { name: name as string }; // Utilisez le nom du pays provenant de l'URL
+  useEffect(() => {
+    const fetchCountryDetails = async () => {
+      try {
+        const response = await axios.get(`https://restcountries.com/v3.1/name/${name}`);
+        setCountryDetails(response.data[0]);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching country details:', error);
+      }
+    };
+
+    if (name) {
+      fetchCountryDetails();
+    }
+  }, [name]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
       <h1>Country Details</h1>
-      <CountryDetails country={countryDetails} />
+      {countryDetails && <CountryDetails country={countryDetails} />}
     </div>
   );
 };

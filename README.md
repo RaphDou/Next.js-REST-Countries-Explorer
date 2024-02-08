@@ -1,2 +1,3 @@
-# Next.js-REST-Countries-Explorer
-Explore countries using Next.js &amp; REST Countries API. Search, filter, and view details like flags, population, and languages. Responsive &amp; intuitive interface.
+# POKEDEX-new
+TP2 concernant la création d'un pokédex en équipe de quatre. (version finale)
+note: this repository will all have the same date of publishing for everything as we made errors in another repository that would've been too difficult to correct. This is our final correct version, with implementation of a correct git flow to show our understanding of the work asked!

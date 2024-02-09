@@ -30,8 +30,6 @@ Clone this repository.
 Install dependencies using npm install.
 Start the development server using npm run dev.
 Open your browser and navigate to http://localhost:3000.
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 Acknowledgments
 Special thanks to the REST Countries API for providing the data used in this project.
